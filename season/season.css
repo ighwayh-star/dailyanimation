@@ -91,6 +91,27 @@ body {
 
 .header__actions { display: flex; gap: 8px; }
 
+.header__btn--mode {
+  background: var(--lavender-100);
+  color: var(--lavender-400);
+  border-color: rgba(176, 136, 212, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.header__btn--mode:hover {
+  background: var(--lavender-200);
+}
+
+.header__btn--mode--active {
+  background: var(--sakura-400);
+  color: white;
+  border-color: var(--sakura-400);
+}
+.header__btn--mode--active:hover {
+  background: var(--sakura-500);
+}
+
 .header__btn {
   padding: 8px 18px;
   border: 1px solid rgba(232, 104, 138, 0.15);
@@ -225,6 +246,14 @@ body {
 .anime-card--hidden {
   opacity: 0.45;
   filter: grayscale(0.35);
+}
+
+/* 浏览模式（默认）：隐藏复选框 */
+body:not(.mode-select) .anime-card__check {
+  display: none;
+}
+body:not(.mode-select) .anime-card {
+  cursor: pointer;
 }
 
 /* 复选框 */

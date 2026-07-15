@@ -20,11 +20,13 @@ const elBtnUnhide = document.getElementById('btnUnhideSelected');
 const elFabSelectAll = document.getElementById('fabSelectAll');
 const elFabHide = document.getElementById('fabHide');
 const elFabUnhide = document.getElementById('fabUnhide');
+const elBtnToggleMode = document.getElementById('btnToggleMode');
 
 // --- State ---
 let calendarData = [];
 let hiddenIds = [];
 let selectedIds = new Set();
+let selectMode = false; // false = 浏览（点击跳转）, true = 选择（点击选中）
 
 // --- Init ---
 document.addEventListener('DOMContentLoaded', init);
@@ -62,6 +64,13 @@ async function loadData() {
 }
 
 function bindEvents() {
+  // 模式切换
+  elBtnToggleMode.addEventListener('click', () => {
+    selectMode = !selectMode;
+    selectedIds.clear();
+    updateModeUI();
+  });
+
   // 全选
   const selectAll = () => {
     const allVisible = getAllVisibleIds();
@@ -157,30 +166,26 @@ function render() {
   // 绑定卡片事件
   document.querySelectorAll('.anime-card').forEach(card => {
     const id = parseInt(card.dataset.animeId);
+    const url = card.dataset.animeUrl;
 
-    // 点击卡片任意位置 → 切换选中
+    // 点击卡片 — 根据模式决定行为
     card.addEventListener('click', () => {
-      if (selectedIds.has(id)) {
-        selectedIds.delete(id);
+      if (selectMode) {
+        // 选择模式：切换选中
+        if (selectedIds.has(id)) {
+          selectedIds.delete(id);
+        } else {
+          selectedIds.add(id);
+        }
+        updateUI();
       } else {
-        selectedIds.add(id);
-      }
-      updateUI();
-    });
-
-    // 点击封面图 → 打开 Bangumi 条目页
-    const cover = card.querySelector('.anime-card__cover');
-    if (cover) {
-      cover.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const url = card.dataset.animeUrl;
+        // 浏览模式：打开 Bangumi
         if (url) window.open(url, '_blank');
-      });
-      cover.style.cursor = 'pointer';
-      cover.title = '打开 Bangumi 页面';
-    }
+      }
+    });
   });
 
+  updateModeUI();
   updateUI();
 }
 
@@ -204,6 +209,28 @@ function createCardHTML(item, isHidden) {
       </div>
     </div>
   `;
+}
+
+function updateModeUI() {
+  // body class 控制复选框显隐
+  document.body.classList.toggle('mode-select', selectMode);
+
+  // 按钮显隐
+  elBtnSelectAll.hidden = !selectMode;
+  elBtnHide.hidden = !selectMode;
+  elBtnUnhide.hidden = !selectMode;
+  elFab.hidden = !selectMode || selectedIds.size === 0;
+
+  // 切换按钮样式
+  elBtnToggleMode.classList.toggle('header__btn--mode--active', selectMode);
+  elBtnToggleMode.innerHTML = selectMode
+    ? '<svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> 退出选择'
+    : '<svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> 选择模式';
+
+  // 退出选择模式时清空选中
+  if (!selectMode) {
+    selectedIds.clear();
+  }
 }
 
 function updateUI() {

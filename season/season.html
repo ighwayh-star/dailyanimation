@@ -15,11 +15,18 @@
       <span class="header__sub">Current Season</span>
     </div>
     <div class="header__actions">
-      <button class="header__btn" id="btnSelectAll">全选</button>
-      <button class="header__btn header__btn--hide" id="btnHideSelected" disabled>
+      <button class="header__btn header__btn--mode" id="btnToggleMode">
+        <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M9 11l3 3L22 4"/>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        选择模式
+      </button>
+      <button class="header__btn" id="btnSelectAll" hidden>全选</button>
+      <button class="header__btn header__btn--hide" id="btnHideSelected" hidden disabled>
         隐藏选中 (<span id="selectedCount">0</span>)
       </button>
-      <button class="header__btn header__btn--unhide" id="btnUnhideSelected" disabled>
+      <button class="header__btn header__btn--unhide" id="btnUnhideSelected" hidden disabled>
         取消隐藏 (<span id="hiddenSelectedCount">0</span>)
       </button>
     </div>
