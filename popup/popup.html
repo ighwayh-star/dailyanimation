@@ -57,6 +57,22 @@
 
   <!-- 内容区域 -->
   <main class="content" id="content" hidden>
+    <!-- 昨天 -->
+    <section class="day-section" id="sectionYesterday">
+      <div class="day-section__header">
+        <div class="day-section__title-row">
+          <span class="day-section__icon">📺</span>
+          <h2 class="day-section__title" id="yesterdayLabel">昨天</h2>
+        </div>
+        <span class="day-section__count" id="yesterdayCount">0</span>
+      </div>
+      <div class="anime-list" id="yesterdayList"></div>
+      <div class="day-section__empty" id="yesterdayEmpty" hidden>
+        <span class="day-section__empty-icon">😴</span>
+        <p>昨天也没有番剧更新</p>
+      </div>
+    </section>
+
     <!-- 今天 -->
     <section class="day-section" id="sectionToday">
       <div class="day-section__header">
@@ -72,22 +88,6 @@
         <span class="day-section__empty-icon">🍵</span>
         <p>今天还没有番剧更新呢</p>
         <p class="day-section__empty-sub">休息一下，明天再来吧~</p>
-      </div>
-    </section>
-
-    <!-- 昨天 -->
-    <section class="day-section" id="sectionYesterday">
-      <div class="day-section__header">
-        <div class="day-section__title-row">
-          <span class="day-section__icon">📺</span>
-          <h2 class="day-section__title" id="yesterdayLabel">昨天</h2>
-        </div>
-        <span class="day-section__count" id="yesterdayCount">0</span>
-      </div>
-      <div class="anime-list" id="yesterdayList"></div>
-      <div class="day-section__empty" id="yesterdayEmpty" hidden>
-        <span class="day-section__empty-icon">😴</span>
-        <p>昨天也没有番剧更新</p>
       </div>
     </section>
 
