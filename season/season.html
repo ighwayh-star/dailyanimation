@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>本季动画 - 每日放送</title>
+  <link rel="stylesheet" href="season.css">
+</head>
+<body>
+  <!-- 顶栏 -->
+  <header class="header">
+    <div class="header__left">
+      <span class="header__logo">🎬</span>
+      <h1 class="header__title">本季动画</h1>
+      <span class="header__sub">Current Season</span>
+    </div>
+    <div class="header__actions">
+      <button class="header__btn" id="btnSelectAll">全选</button>
+      <button class="header__btn header__btn--hide" id="btnHideSelected" disabled>
+        隐藏选中 (<span id="selectedCount">0</span>)
+      </button>
+      <button class="header__btn header__btn--unhide" id="btnUnhideSelected" disabled>
+        取消隐藏 (<span id="hiddenSelectedCount">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <!-- 加载中 -->
+  <div class="loading" id="loading">
+    <div class="loading__spinner"></div>
+    <p>正在加载本季动画...</p>
+  </div>
+
+  <!-- 内容 -->
+  <main class="content" id="content" hidden>
+    <div id="weekdaySections"></div>
+  </main>
+
+  <!-- 底部浮动操作栏 -->
+  <div class="fab" id="fab" hidden>
+    <span class="fab__count">已选 <strong id="fabCount">0</strong> 部</span>
+    <button class="fab__btn fab__btn--select" id="fabSelectAll">全选</button>
+    <button class="fab__btn fab__btn--hide" id="fabHide">隐藏</button>
+    <button class="fab__btn fab__btn--unhide" id="fabUnhide">取消隐藏</button>
+  </div>
+
+  <script src="season.js"></script>
+</body>
+</html>

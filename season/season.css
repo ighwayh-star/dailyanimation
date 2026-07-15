@@ -1,0 +1,385 @@
+/* ==============================================
+   本季动画 — 桜 (Sakura) 主题
+   ============================================== */
+
+:root {
+  --sakura-50: #FFF0F3;
+  --sakura-100: #FFE0E7;
+  --sakura-200: #FFC2D1;
+  --sakura-300: #FFA3B8;
+  --sakura-400: #F8829E;
+  --sakura-500: #E8688A;
+  --sakura-600: #D44E72;
+  --cream: #FFF8F6;
+  --lavender-100: #F3EDFA;
+  --lavender-200: #E8DCF5;
+  --lavender-300: #D4B8E8;
+  --lavender-400: #B088D4;
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-bg-hover: rgba(255, 255, 255, 0.88);
+  --glass-bg-card: rgba(255, 255, 255, 0.64);
+  --glass-bg-card-hover: rgba(255, 255, 255, 0.82);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-border-hover: rgba(232, 104, 138, 0.25);
+  --text-primary: #3D2C35;
+  --text-secondary: #7A6572;
+  --text-muted: #B09AA6;
+  --text-accent: #D44E72;
+  --star-gold: #F5A623;
+  --shadow-sm: 0 2px 8px rgba(180, 130, 150, 0.10);
+  --shadow-md: 0 4px 16px rgba(180, 130, 150, 0.12);
+  --shadow-glow: 0 0 24px rgba(248, 130, 158, 0.14);
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+[hidden] { display: none !important; }
+
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  color: var(--text-primary);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,210,225,0.40) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 10% 90%, rgba(212,184,232,0.20) 0%, transparent 50%),
+    linear-gradient(175deg, var(--cream) 0%, #FFF5F8 40%, #FFF0F5 100%);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ===== 顶栏 ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: rgba(255, 248, 246, 0.82);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom: 1px solid rgba(232, 104, 138, 0.10);
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__logo { font-size: 28px; }
+
+.header__title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.header__sub {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  color: var(--sakura-400);
+  text-transform: uppercase;
+}
+
+.header__actions { display: flex; gap: 8px; }
+
+.header__btn {
+  padding: 8px 18px;
+  border: 1px solid rgba(232, 104, 138, 0.15);
+  border-radius: 99px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out);
+}
+
+.header__btn:hover {
+  background: var(--glass-bg-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.header__btn--hide {
+  color: var(--sakura-500);
+  border-color: rgba(232, 104, 138, 0.25);
+}
+
+.header__btn--hide:disabled,
+.header__btn--unhide:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.header__btn--unhide {
+  color: #6BCB77;
+  border-color: rgba(107, 203, 119, 0.25);
+}
+
+/* ===== 加载 ===== */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 20px;
+  gap: 16px;
+  color: var(--text-muted);
+}
+
+.loading__spinner {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--sakura-300), var(--lavender-300), var(--sakura-100), transparent 240deg, var(--sakura-300));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3px));
+  animation: spin 1.2s var(--ease-out) infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== 内容 ===== */
+.content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}
+
+/* ===== 星期分组 ===== */
+.weekday-group {
+  margin-bottom: 24px;
+}
+
+.weekday-group__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 6px 12px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--text-primary);
+}
+
+.weekday-group__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 每天不同色点 */
+.weekday-group__dot--1 { background: #F8829E; } /* 周一 樱粉 */
+.weekday-group__dot--2 { background: #E8A87C; } /* 周二 橘 */
+.weekday-group__dot--3 { background: #F5C842; } /* 周三 黄 */
+.weekday-group__dot--4 { background: #6BCB77; } /* 周四 绿 */
+.weekday-group__dot--5 { background: #4D96FF; } /* 周五 蓝 */
+.weekday-group__dot--6 { background: #9B72F2; } /* 周六 紫 */
+.weekday-group__dot--7 { background: #F07080; } /* 周日 红 */
+
+.weekday-group__count {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ===== 番剧卡片（横向布局） ===== */
+.anime-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.anime-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--glass-bg-card);
+  backdrop-filter: blur(12px) saturate(1.3);
+  -webkit-backdrop-filter: blur(12px) saturate(1.3);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 1px 3px rgba(180, 130, 150, 0.05);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out);
+  position: relative;
+}
+
+.anime-card:hover {
+  background: var(--glass-bg-card-hover);
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-1px);
+}
+
+.anime-card--hidden {
+  opacity: 0.45;
+  filter: grayscale(0.35);
+}
+
+/* 复选框 */
+.anime-card__check {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--sakura-200);
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s var(--ease-out);
+  cursor: pointer;
+  background: rgba(255,255,255,0.5);
+}
+
+.anime-card__check:hover {
+  border-color: var(--sakura-400);
+  background: rgba(255,240,243,0.6);
+}
+
+.anime-card--checked .anime-card__check {
+  background: var(--sakura-400);
+  border-color: var(--sakura-400);
+}
+
+.anime-card__check::after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 4px;
+  border-left: 2px solid white;
+  border-bottom: 2px solid white;
+  transform: rotate(-45deg) translateY(1px);
+  opacity: 0;
+  transition: opacity 0.1s;
+}
+
+.anime-card--checked .anime-card__check::after {
+  opacity: 1;
+}
+
+/* 封面 */
+.anime-card__cover {
+  width: 40px;
+  height: 54px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: linear-gradient(135deg, var(--sakura-100), var(--lavender-100));
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(180, 130, 150, 0.12);
+}
+
+/* 信息 */
+.anime-card__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.anime-card__name-cn {
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.anime-card__name {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.anime-card__rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--star-gold);
+  background: rgba(245,166,35,0.08);
+  padding: 1px 6px;
+  border-radius: 99px;
+  margin-top: 3px;
+}
+
+/* ===== 底部浮动栏 ===== */
+.fab {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  border: 1px solid rgba(232, 104, 138, 0.12);
+  border-radius: 99px;
+  box-shadow: 0 4px 24px rgba(180, 130, 150, 0.15), 0 2px 8px rgba(180, 130, 150, 0.08);
+}
+
+.fab__count {
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.fab__btn {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s var(--ease-out);
+}
+
+.fab__btn--select {
+  background: var(--lavender-100);
+  color: var(--lavender-400);
+}
+.fab__btn--select:hover {
+  background: var(--lavender-200);
+}
+
+.fab__btn--hide {
+  background: linear-gradient(135deg, var(--sakura-300), var(--sakura-400));
+  color: white;
+  box-shadow: 0 3px 12px rgba(232, 104, 138, 0.25);
+}
+.fab__btn--hide:hover {
+  box-shadow: 0 4px 18px rgba(232, 104, 138, 0.35);
+  transform: translateY(-1px);
+}
+
+.fab__btn--unhide {
+  background: linear-gradient(135deg, #6BCB77, #4CAF50);
+  color: white;
+  box-shadow: 0 3px 12px rgba(107, 203, 119, 0.25);
+}
+.fab__btn--unhide:hover {
+  box-shadow: 0 4px 18px rgba(107, 203, 119, 0.35);
+  transform: translateY(-1px);
+}
+
+/* 响应式 */
+@media (max-width: 500px) {
+  .content { padding: 12px 8px; }
+  .header { padding: 12px 16px; }
+  .header__title { font-size: 17px; }
+}

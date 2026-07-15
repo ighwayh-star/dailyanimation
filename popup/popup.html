@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日动画放送</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- 装饰：飘落樱花花瓣 -->
+  <div class="sakura-petals" aria-hidden="true">
+    <span class="petal petal--1">🌸</span>
+    <span class="petal petal--2">🌸</span>
+    <span class="petal petal--3">🌸</span>
+    <span class="petal petal--4">💮</span>
+    <span class="petal petal--5">🌸</span>
+  </div>
+
+  <!-- 顶部标题栏 -->
+  <header class="header">
+    <div class="header__brand">
+      <span class="header__logo">🎬</span>
+      <div class="header__title-group">
+        <h1 class="header__title">每日放送</h1>
+        <span class="header__subtitle">Daily Animation</span>
+      </div>
+    </div>
+    <button class="header__btn header__btn--refresh" id="btnRefresh" title="刷新数据">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="23 4 23 10 17 10"/>
+        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- 加载中 -->
+  <div class="loading" id="loading">
+    <div class="loading__spinner">
+      <div class="loading__spinner-ring"></div>
+    </div>
+    <p class="loading__text">加载中...</p>
+    <p class="loading__hint">正在从 Bangumi 获取放送数据</p>
+  </div>
+
+  <!-- 错误提示 -->
+  <div class="error" id="error" hidden>
+    <div class="error__icon">💫</div>
+    <p class="error__text" id="errorText"></p>
+    <button class="error__retry" id="btnRetry">
+      <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <polyline points="23 4 23 10 17 10"/>
+        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+      </svg>
+      重新加载
+    </button>
+  </div>
+
+  <!-- 内容区域 -->
+  <main class="content" id="content" hidden>
+    <!-- 今天 -->
+    <section class="day-section" id="sectionToday">
+      <div class="day-section__header">
+        <div class="day-section__title-row">
+          <span class="day-section__icon">🌟</span>
+          <h2 class="day-section__title" id="todayLabel">今天</h2>
+          <span class="day-section__badge">NEW</span>
+        </div>
+        <span class="day-section__count" id="todayCount">0</span>
+      </div>
+      <div class="anime-list" id="todayList"></div>
+      <div class="day-section__empty" id="todayEmpty" hidden>
+        <span class="day-section__empty-icon">🍵</span>
+        <p>今天还没有番剧更新呢</p>
+        <p class="day-section__empty-sub">休息一下，明天再来吧~</p>
+      </div>
+    </section>
+
+    <!-- 昨天 -->
+    <section class="day-section" id="sectionYesterday">
+      <div class="day-section__header">
+        <div class="day-section__title-row">
+          <span class="day-section__icon">📺</span>
+          <h2 class="day-section__title" id="yesterdayLabel">昨天</h2>
+        </div>
+        <span class="day-section__count" id="yesterdayCount">0</span>
+      </div>
+      <div class="anime-list" id="yesterdayList"></div>
+      <div class="day-section__empty" id="yesterdayEmpty" hidden>
+        <span class="day-section__empty-icon">😴</span>
+        <p>昨天也没有番剧更新</p>
+      </div>
+    </section>
+
+    <!-- 已隐藏的番剧 -->
+    <section class="hidden-section" id="hiddenSection" hidden>
+      <button class="hidden-section__toggle" id="btnToggleHidden">
+        <svg class="hidden-section__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+        <span class="hidden-section__label">已隐藏</span>
+        <span class="hidden-section__badge" id="hiddenCount">0</span>
+      </button>
+      <div class="anime-list anime-list--hidden" id="hiddenList" hidden></div>
+    </section>
+    <!-- 本季全部 -->
+    <div class="season-link" id="seasonLink">
+      <button class="season-link__btn" id="btnOpenSeason">
+        <span>📋 查看本季全部动画</span>
+        <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+      </button>
+    </div>
+  </main>
+
+  <!-- 底部 -->
+  <footer class="footer">
+    <div class="footer__divider">
+      <span class="footer__divider-dot">•</span>
+      <span class="footer__divider-dot">•</span>
+      <span class="footer__divider-dot">•</span>
+    </div>
+    <span class="footer__text">数据来源</span>
+    <a class="footer__link" href="https://bgm.tv" target="_blank" rel="noopener">
+      Bangumi 番组计划
+      <svg class="icon icon--xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+        <polyline points="15 3 21 3 21 9"/>
+        <line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+    </a>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

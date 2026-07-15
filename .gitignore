@@ -1,0 +1,10 @@
+# 生成脚本
+assets/icons/generate_icons.py
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.pyc
+__pycache__/

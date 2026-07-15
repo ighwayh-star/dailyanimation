@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "每日动画放送",
+  "version": "1.0.0",
+  "description": "基于 Bangumi 数据的每日动画放送浏览器插件，展示今天和昨天更新的番剧",
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "32": "assets/icons/icon32.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "每日动画放送",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://api.bgm.tv/*"
+  ],
+  "minimum_chrome_version": "88"
+}
