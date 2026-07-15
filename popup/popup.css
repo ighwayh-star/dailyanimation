@@ -576,6 +576,38 @@ body::-webkit-scrollbar-thumb:hover {
   font-weight: 400;
 }
 
+/* 右侧按钮组 */
+.anime-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+/* 搜索按钮 */
+.anime-card__search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: var(--radius-xs);
+  background: rgba(35, 155, 230, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: rgba(35, 155, 230, 0.65);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all var(--transition-fast);
+}
+
+.anime-card__search-btn:hover {
+  background: rgba(35, 155, 230, 0.15);
+  color: rgba(35, 155, 230, 0.85);
+  box-shadow: var(--shadow-xs);
+}
+
 /* 隐藏按钮 */
 .anime-card__hide-btn {
   display: flex;

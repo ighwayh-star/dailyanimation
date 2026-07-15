@@ -183,25 +183,42 @@ function createAnimeCard(anime, isHidden) {
         ` : ''}
       </div>
     </div>
-    <button class="anime-card__hide-btn ${isHidden ? 'anime-card__hide-btn--hidden' : ''}"
-            data-anime-id="${anime.id}"
-            title="${isHidden ? '取消隐藏' : '隐藏此番剧'}">
-      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        ${isHidden ? `
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-          <line x1="1" y1="1" x2="23" y2="23"/>
-        ` : `
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>
-        `}
-      </svg>
-    </button>
+    <div class="anime-card__actions">
+      <button class="anime-card__search-btn"
+              title="在 Bilibili 搜索 ${escapeHtml(anime.nameCn)}">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+      </button>
+      <button class="anime-card__hide-btn ${isHidden ? 'anime-card__hide-btn--hidden' : ''}"
+              data-anime-id="${anime.id}"
+              title="${isHidden ? '取消隐藏' : '隐藏此番剧'}">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          ${isHidden ? `
+            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+            <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+            <line x1="1" y1="1" x2="23" y2="23"/>
+          ` : `
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+            <circle cx="12" cy="12" r="3"/>
+          `}
+        </svg>
+      </button>
+    </div>
   `;
 
   card.addEventListener('click', (e) => {
-    if (e.target.closest('.anime-card__hide-btn')) return;
+    if (e.target.closest('.anime-card__hide-btn, .anime-card__search-btn')) return;
     chrome.tabs.create({ url: anime.url, active: false });
+  });
+
+  // 搜索按钮
+  const searchBtn = card.querySelector('.anime-card__search-btn');
+  searchBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const query = encodeURIComponent(anime.nameCn || anime.name);
+    chrome.tabs.create({ url: `https://search.bilibili.com/all?keyword=${query}`, active: false });
   });
 
   const hideBtn = card.querySelector('.anime-card__hide-btn');
