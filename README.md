@@ -1,6 +1,15 @@
 # 🌸 每日动画放送
 
-基于 [Bangumi 番组计划](https://bgm.tv) 数据的浏览器扩展插件，优雅展示每日更新的动画番剧。
+基于 [Bangumi 番组计划](https://bgm.tv) 数据的浏览器扩展插件 & 站内小组件，优雅展示每日更新的动画番剧。
+
+---
+
+## 🚀 两种使用方式
+
+| 方式 | 适用场景 |
+|------|---------|
+| **浏览器扩展** | Chrome / Edge 用户，通过弹窗查看 |
+| **超合金组件** | Bangumi 站内用户，在首页侧边直接查看 |
 
 ---
 
@@ -34,7 +43,13 @@
 ### Firefox（需要手动适配）
 
 1. 将 `manifest.json` 中 `"service_worker"` 改为 `"scripts": ["background/service-worker.js"]`
-2. `about:debugging` → 「此 Firefox」→ 「临时载入附加组件」→ 选择 `manifest.json`
+2. `about:debugging` → 「此 Firefox」→ 「临时载入附加组件」→ 选择 `manifest.json`### Bangumi 超合金组件
+
+1. 打开 `https://bgm.tv/dev/app` → 创建新应用
+2. 应用名填「每日动画放送」，类型选「组件」
+3. 添加新版本 → 将 `widget/widget.js` 全部内容粘贴到脚本框，CSS 留空
+4. 去 `https://bgm.tv/settings/gadgets` 启用组件
+5. 打开 `https://bgm.tv` 首页 → 右侧出现侧边栏
 
 ---
 
@@ -132,6 +147,8 @@ dailyanimation/
 │   ├── season.html            # 本季全览页
 │   ├── season.css             # 全览页样式
 │   └── season.js              # 双模式 & 批量管理
+├── widget/
+│   └── widget.js              # 超合金组件（自包含）
 ├── background/
 │   └── service-worker.js      # 后台定时缓存刷新
 ├── utils/
